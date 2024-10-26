@@ -67,6 +67,9 @@ SetKeyDelay(0)
 ^Right:: Send("#^{Right}")
 ^Left:: Send("#^{Left}")
 
+; Esc
+^[:: Send "{Esc}"
+
 #HotIf
 
 ; ------------------------------------------------------------------------------
@@ -79,7 +82,6 @@ SetKeyDelay(0)
 || WinActive("ahk_exe Files.exe") ; Files
 
 ^u:: Send "{F2}"
-^[:: Send "{Esc}"
 
 #HotIf
 

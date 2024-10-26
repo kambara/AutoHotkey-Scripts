@@ -80,9 +80,7 @@ SetKeyDelay(0)
 || WinActive("ahk_class Chrome_WidgetWin_1") ; Chrome, Edge
 || WinActive("ahk_exe explorer.exe") ; Explorer
 || WinActive("ahk_exe Files.exe") ; Files
-
-^u:: Send "{F2}"
-
+^u:: Send("{F2}")
 #HotIf
 
 ; ------------------------------------------------------------------------------

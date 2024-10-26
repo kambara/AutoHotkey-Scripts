@@ -126,6 +126,6 @@ CheckMousePosition() {
 #HotIf
 
 #HotIf WinActive("ahk_exe EXCEL.exe")
-+WheelDown:: Send("{+^WheelDown}")
-+WheelUp:: Send("{+^WheelUp}")
++WheelDown:: Send("+^{WheelDown}")
++WheelUp:: Send("+^{WheelUp}")
 #HotIf

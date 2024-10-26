@@ -76,7 +76,7 @@ SetKeyDelay(0)
 ; Ctrl-Uでファイル名やExcelのセルを編集
 ;
 
-#HotIf WinActive("ahk_class XLMAIN") ; Excel
+#HotIf WinActive("ahk_exe EXCEL.exe") ; Excel
 || WinActive("ahk_class Chrome_WidgetWin_1") ; Chrome, Edge
 || WinActive("ahk_exe explorer.exe") ; Explorer
 || WinActive("ahk_exe Files.exe") ; Files
@@ -115,3 +115,17 @@ CheckMousePosition() {
         executed := False
     }
 }
+
+; ------------------------------------------------------------------------------
+; Shift+ホイールで横スクロール
+;
+
+#HotIf WinActive("ahk_exe ONENOTE.exe")
++WheelDown::WheelRight
++WheelUp::WheelLeft
+#HotIf
+
+#HotIf WinActive("ahk_exe EXCEL.exe")
++WheelDown::+^WheelDown
++WheelUp::+^WheelUp
+#HotIf

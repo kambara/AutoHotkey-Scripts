@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0
 
+; ------------------------------------------------------------------------------
+; Alt IME
+;
+; alt-ime-ahk-v2.ahk
+; https://github.com/h1g0/alt-ime-ahk/tree/feature/ahk-v2
+; IMEv2.ahk
+; https://github.com/k-ayaki/IMEv2.ahk
+;
+
 #Include alt-ime-ahk\alt-ime-ahk-v2.ahk
 
 ; ------------------------------------------------------------------------------

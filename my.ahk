@@ -22,53 +22,53 @@ InstallKeybdHook
 && !WinActive("ahk_exe blender.exe")
 && !WinActive("ahk_exe Resolve.exe")
 
-SetKeyDelay(0)
+;SetKeyDelay(0)
 
 ; General
-!x:: Send("^x") ; Cut
-!c:: Send("^c") ; Copy
-!v:: Send("^v") ; Paste
-!z:: Send("^z") ; Undo
-!y:: Send("^y") ; Redo
-!s:: Send("^s") ; Save
-!a:: Send("^a") ; Select all
-!f:: Send("^f") ; Search
-!p:: Send("^p") ; Print
-!n:: Send("^n") ; New file
+!x:: SendSleep("^x") ; Cut
+!c:: SendSleep("^c") ; Copy
+!v:: SendSleep("^v") ; Paste
+!z:: SendSleep("^z") ; Undo
+!y:: SendSleep("^y") ; Redo
+!s:: SendSleep("^s") ; Save
+!a:: SendSleep("^a") ; Select all
+!f:: SendSleep("^f") ; Search
+!p:: SendSleep("^p") ; Print
+!n:: SendSleep("^n") ; New file
 
 ; Window
-!m:: Send("#{Down}") ; Minimize
-!q:: Send("!{F4}")   ; Close
+!m:: SendSleep("#{Down}") ; Minimize
+!q:: SendSleep("!{F4}")   ; Close
 
 ; Text
-!b:: Send("^b") ; Bold
+!b:: SendSleep("^b") ; Bold
 
 ; Web browser
-!w:: Send("^w")   ; Close tab
-!t:: Send("^t")   ; New tab
-+!t:: Send("+^t") ; Reopen closed tabs
-+!n:: Send("+^n") ; New window in Incognito mode
-!l:: Send("^l")   ; Focus on address bar
+!w:: SendSleep("^w")   ; Close tab
+!t:: SendSleep("^t")   ; New tab
++!t:: SendSleep("+^t") ; Reopen closed tabs
++!n:: SendSleep("+^n") ; New window in Incognito mode
+!l:: SendSleep("^l")   ; Focus on address bar
 
 ; Delete text
-^h:: Send("{Backspace}")
-^d:: Send("{Delete}")
-^k:: Send("{Shift down}{End}{Shift up}{Delete}")
+^h:: SendSleep("{Backspace}")
+^d:: SendSleep("{Delete}")
+^k:: SendSleep("{Shift down}{End}{Shift up}{Delete}")
 
 ; Move cursor
-^b:: Send("{Left}")
-^f:: Send("{Right}")
-^n:: Send("{Down}")
-^p:: Send("{Up}")
-^a:: Send("{Home}")
-^e:: Send("{End}")
+^b:: SendSleep("{Left}")
+^f:: SendSleep("{Right}")
+^n:: SendSleep("{Down}")
+^p:: SendSleep("{Up}")
+^a:: SendSleep("{Home}")
+^e:: SendSleep("{End}")
 
 ; Desktop switch
-^Right:: Send("#^{Right}")
-^Left:: Send("#^{Left}")
+^Right:: SendSleep("#^{Right}")
+^Left:: SendSleep("#^{Left}")
 
 ; Esc
-^[:: Send "{Esc}"
+^[:: SendSleep "{Esc}"
 
 #HotIf
 
@@ -80,7 +80,9 @@ SetKeyDelay(0)
 || WinActive("ahk_class Chrome_WidgetWin_1") ; Chrome, Edge
 || WinActive("ahk_exe explorer.exe") ; Explorer
 || WinActive("ahk_exe Files.exe") ; Files
-^u:: Send("{F2}")
+
+^u:: SendSleep("{F2}")
+
 #HotIf
 
 ; ------------------------------------------------------------------------------
@@ -88,7 +90,7 @@ SetKeyDelay(0)
 ;
 
 #HotIf WinActive("ahk_exe chrome.exe")
-^!t:: Send("!er{Right}{Esc}")
+^!t:: SendSleep("!er{Right}{Esc}")
 #HotIf
 
 ; ------------------------------------------------------------------------------
@@ -101,12 +103,12 @@ SetTimer CheckMousePosition, 100
 
 CheckMousePosition() {
     global executed
-    MouseGetPos &MouseX, &MouseY
+    MouseGetPos(&MouseX, &MouseY)
     if (MouseX < 1 and MouseY < 1) {
         if not executed {
-            Send "{LWin down}{Tab down}"
-            Sleep 100
-            Send "{Tab up}{LWin up}"
+            Send("{LWin down}{Tab down}")
+            Sleep(100)
+            Send("{Tab up}{LWin up}")
             executed := True
         }
     } else {
@@ -118,12 +120,32 @@ CheckMousePosition() {
 ; Shift+ホイールで横スクロール
 ;
 
+; OneNote
 #HotIf WinActive("ahk_exe ONENOTE.exe")
 +WheelDown:: Send("{WheelRight}")
 +WheelUp:: Send("{WheelLeft}")
 #HotIf
 
+; Excel
 #HotIf WinActive("ahk_exe EXCEL.exe")
 +WheelDown:: Send("+^{WheelDown}")
 +WheelUp:: Send("+^{WheelUp}")
 #HotIf
+
+; DaVinci Resolve
+#HotIf WinActive("ahk_exe Resolve.exe")
++WheelDown:: Send("{Right}")
++WheelUp:: Send("{Left}")
+^WheelDown:: Send("+{Right}")
+^WheelUp:: Send("+{Left}")
+#HotIf
+
+; ------------------------------------------------------------------------------
+; キー押しっぱなし対策
+;
+
+SendSleep(key) {
+    Send(key)
+    Sleep(2)
+    return
+}

@@ -5,11 +5,138 @@
 ;
 ; alt-ime-ahk-v2.ahk
 ; https://github.com/h1g0/alt-ime-ahk/tree/feature/ahk-v2
+; Author: h1g0
+;
 ; IMEv2.ahk
 ; https://github.com/k-ayaki/IMEv2.ahk
 ;
 
-#Include alt-ime-ahk\alt-ime-ahk-v2.ahk
+#Include IMEv2.ahk
+
+; Razer Synapseなど、キーカスタマイズ系のツールを併用しているときのエラー対策
+A_MaxHotkeysPerInterval := 350
+
+; 主要なキーを HotKey に設定し、何もせずパススルーする
+*~a::
+*~b::
+*~c::
+*~d::
+*~e::
+*~f::
+*~g::
+*~h::
+*~i::
+*~j::
+*~k::
+*~l::
+*~m::
+*~n::
+*~o::
+*~p::
+*~q::
+*~r::
+*~s::
+*~t::
+*~u::
+*~v::
+*~w::
+*~x::
+*~y::
+*~z::
+*~1::
+*~2::
+*~3::
+*~4::
+*~5::
+*~6::
+*~7::
+*~8::
+*~9::
+*~0::
+*~F1::
+*~F2::
+*~F3::
+*~F4::
+*~F5::
+*~F6::
+*~F7::
+*~F8::
+*~F9::
+*~F10::
+*~F11::
+*~F12::
+*~`::
+*~~::
+*~!::
+*~@::
+*~#::
+*~$::
+*~%::
+*~^::
+*~&::
+*~*::
+*~(::
+*~)::
+*~-::
+*~_::
+*~=::
+*~+::
+*~[::
+*~{::
+*~]::
+*~}::
+*~\::
+*~|::
+*~;::
+*~'::
+*~"::
+*~,::
+*~<::
+*~.::
+*~>::
+*~/::
+*~?::
+*~Esc::
+*~Tab::
+*~Space::
+*~Left::
+*~Right::
+*~Up::
+*~Down::
+*~Enter::
+*~PrintScreen::
+*~Delete::
+*~Home::
+*~End::
+*~PgUp::
+*~PgDn::
+{
+    Return
+}
+
+; 上部メニューがアクティブになるのを抑制
+*~LAlt::Send ("{Blind}{vk07}")
+*~RAlt::Send ("{Blind}{vk07}")
+
+; 左 Alt 空打ちで IME を OFF
+LAlt up::
+{
+    if (A_PriorHotkey == "*~LAlt")
+    {
+        IME_SET(0)
+    }
+    Return
+}
+
+; 右 Alt 空打ちで IME を ON
+RAlt up::
+{
+    if (A_PriorHotkey == "*~RAlt")
+    {
+        IME_SET(1)
+    }
+    Return
+}
 
 ; ------------------------------------------------------------------------------
 ; Mac風
@@ -21,8 +148,6 @@ InstallKeybdHook
 #HotIf !WinActive("ahk_class UnrealWindow")
 && !WinActive("ahk_exe blender.exe")
 && !WinActive("ahk_exe Resolve.exe")
-
-;SetKeyDelay(0)
 
 ; General
 !x:: SendSleep("^x") ; Cut
@@ -44,11 +169,11 @@ InstallKeybdHook
 !b:: SendSleep("^b") ; Bold
 
 ; Web browser
-!w:: SendSleep("^w")   ; Close tab
-!t:: SendSleep("^t")   ; New tab
+!w::  SendSleep("^w")   ; Close tab
+!t::  SendSleep("^t")   ; New tab
 +!t:: SendSleep("+^t") ; Reopen closed tabs
 +!n:: SendSleep("+^n") ; New window in Incognito mode
-!l:: SendSleep("^l")   ; Focus on address bar
+!l::  SendSleep("^l")   ; Focus on address bar
 
 ; Delete text
 ^h:: SendSleep("{Backspace}")
@@ -65,9 +190,9 @@ InstallKeybdHook
 
 ; Desktop switch
 ^Right:: SendSleep("#^{Right}")
-^Left:: SendSleep("#^{Left}")
+^Left::  SendSleep("#^{Left}")
 
-; Esc
+; Vim-like Esc
 ^[:: SendSleep "{Esc}"
 
 #HotIf
@@ -123,21 +248,21 @@ CheckMousePosition() {
 ; OneNote
 #HotIf WinActive("ahk_exe ONENOTE.exe")
 +WheelDown:: Send("{WheelRight}")
-+WheelUp:: Send("{WheelLeft}")
++WheelUp::   Send("{WheelLeft}")
 #HotIf
 
 ; Excel
 #HotIf WinActive("ahk_exe EXCEL.exe")
 +WheelDown:: Send("+^{WheelDown}")
-+WheelUp:: Send("+^{WheelUp}")
++WheelUp::   Send("+^{WheelUp}")
 #HotIf
 
 ; DaVinci Resolve
 #HotIf WinActive("ahk_exe Resolve.exe")
 +WheelDown:: Send("{Right}")
-+WheelUp:: Send("{Left}")
++WheelUp::   Send("{Left}")
 ^WheelDown:: Send("+{Right}")
-^WheelUp:: Send("+{Left}")
+^WheelUp::   Send("+{Left}")
 #HotIf
 
 ; ------------------------------------------------------------------------------

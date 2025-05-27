@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0
 
 ; ------------------------------------------------------------------------------
+; キーの履歴を保存
+;
+KeyHistory
+
+; ------------------------------------------------------------------------------
 ; Alt IME
 ;
 ; alt-ime-ahk-v2.ahk
@@ -111,31 +116,29 @@ A_MaxHotkeysPerInterval := 350
 *~PgUp::
 *~PgDn::
 {
-    Return
+    return
 }
 
 ; 上部メニューがアクティブになるのを抑制
-*~LAlt::Send ("{Blind}{vk07}")
-*~RAlt::Send ("{Blind}{vk07}")
+*~LAlt:: Send ("{Blind}{vk07}")
+*~RAlt:: Send ("{Blind}{vk07}")
 
 ; 左 Alt 空打ちで IME を OFF
 LAlt up::
 {
-    if (A_PriorHotkey == "*~LAlt")
-    {
+    if (A_PriorHotkey == "*~LAlt") {
         IME_SET(0)
     }
-    Return
+    return
 }
 
 ; 右 Alt 空打ちで IME を ON
 RAlt up::
 {
-    if (A_PriorHotkey == "*~RAlt")
-    {
+    if (A_PriorHotkey == "*~RAlt") {
         IME_SET(1)
     }
-    Return
+    return
 }
 
 ; ------------------------------------------------------------------------------
@@ -148,6 +151,7 @@ InstallKeybdHook
 #HotIf !WinActive("ahk_class UnrealWindow")
 && !WinActive("ahk_exe blender.exe")
 && !WinActive("ahk_exe Resolve.exe")
+&& !WinActive("ahk_exe mpv.exe")
 
 ; General
 !x:: SendSleep("^x") ; Cut
@@ -169,11 +173,11 @@ InstallKeybdHook
 !b:: SendSleep("^b") ; Bold
 
 ; Web browser
-!w::  SendSleep("^w")   ; Close tab
-!t::  SendSleep("^t")   ; New tab
+!w:: SendSleep("^w")   ; Close tab
+!t:: SendSleep("^t")   ; New tab
 +!t:: SendSleep("+^t") ; Reopen closed tabs
 +!n:: SendSleep("+^n") ; New window in Incognito mode
-!l::  SendSleep("^l")   ; Focus on address bar
+!l:: SendSleep("^l")   ; Focus on address bar
 
 ; Delete text
 ^h:: SendSleep("{Backspace}")
@@ -190,7 +194,7 @@ InstallKeybdHook
 
 ; Desktop switch
 ^Right:: SendSleep("#^{Right}")
-^Left::  SendSleep("#^{Left}")
+^Left:: SendSleep("#^{Left}")
 
 ; Vim-like Esc
 ^[:: SendSleep "{Esc}"
@@ -248,21 +252,30 @@ CheckMousePosition() {
 ; OneNote
 #HotIf WinActive("ahk_exe ONENOTE.exe")
 +WheelDown:: Send("{WheelRight}")
-+WheelUp::   Send("{WheelLeft}")
++WheelUp:: Send("{WheelLeft}")
 #HotIf
 
 ; Excel
 #HotIf WinActive("ahk_exe EXCEL.exe")
 +WheelDown:: Send("+^{WheelDown}")
-+WheelUp::   Send("+^{WheelUp}")
++WheelUp:: Send("+^{WheelUp}")
 #HotIf
 
 ; DaVinci Resolve
 #HotIf WinActive("ahk_exe Resolve.exe")
 +WheelDown:: Send("{Right}")
-+WheelUp::   Send("{Left}")
++WheelUp:: Send("{Left}")
 ^WheelDown:: Send("+{Right}")
-^WheelUp::   Send("+{Left}")
+^WheelUp:: Send("+{Left}")
+#HotIf
+
+; ------------------------------------------------------------------------------
+; mpvホイール操作
+;
+
+#HotIf WinActive("ahk_exe mpv.exe")
+XButton1 & WheelUp:: Send(",")
+XButton1 & WheelDown:: Send(".")
 #HotIf
 
 ; ------------------------------------------------------------------------------

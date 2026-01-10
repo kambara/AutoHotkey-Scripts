@@ -1,12 +1,14 @@
-# Git Clone
+# My AutoHotkey Scripts
+
+## Git Clone
 
 ```
-git clone --recursive <Repository>
+git clone --recursive git@github.com:kambara/AutoHotkey-Scripts.git
 ```
 
 OR
 
 ```
-git clone <Repository>
+git clone git@github.com:kambara/AutoHotkey-Scripts.git
 git submodule update --init --recursive
 ```

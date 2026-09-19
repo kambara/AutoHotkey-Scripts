@@ -130,3 +130,14 @@ RAlt up::
     }
     return
 }
+
+; 左 Ctrl 空打ちで IME を ON
+*~LCtrl:: return
+
+LCtrl up::
+{
+    if (A_PriorHotkey == "*~LCtrl") {
+        IME_SET(1)
+    }
+    return
+}

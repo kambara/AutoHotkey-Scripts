@@ -53,6 +53,10 @@
 ^Left:: SendSleep("#^{Left}")
 
 ; Vim-like Esc
-^[:: SendSleep "{Esc}"
+^[:: SendSleep("{Esc}")
+
+; Ctrl+SemiColon Enter
+^;:: SendSleep("{Enter}")
+!;:: SendSleep("{Enter}")
 
 #HotIf

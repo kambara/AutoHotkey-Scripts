@@ -35,7 +35,7 @@ InstallMouseHook
 || WinActive("ahk_exe msedge.exe")
 ^!t:: {
     Send("+{F10}")
-    Sleep(100)
+    Sleep(200)
     SendSleep("t{Esc}")
 }
 #HotIf

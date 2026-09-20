@@ -55,7 +55,7 @@
 ; Vim-like Esc
 ^[:: SendSleep("{Esc}")
 
-; Ctrl+SemiColon Enter
+; Mod+SemiColon Enter
 ^;:: SendSleep("{Enter}")
 !;:: SendSleep("{Enter}")
 

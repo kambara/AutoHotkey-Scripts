@@ -33,7 +33,11 @@ InstallMouseHook
 
 #HotIf WinActive("ahk_exe chrome.exe")
 || WinActive("ahk_exe msedge.exe")
-^!t:: SendSleep("+{F10}t{Esc}")
+^!t:: {
+    Send("+{F10}")
+    Sleep(100)
+    SendSleep("t{Esc}")
+}
 #HotIf
 
 ; ------------------------------------------------------------------------------
